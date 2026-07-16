@@ -1,0 +1,55 @@
+name: Telegram Views Bot
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # يعيد التشغيل كل 6 ساعات تلقائياً
+    - cron: "0 */6 * * *"
+
+# منع تشغيل أكثر من نسخة واحدة في نفس الوقت
+concurrency:
+  group: telegram-views-bot
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Restore bot data
+        uses: actions/cache@v4
+        with:
+          path: bot_data.json
+          key: bot-data-${{ github.run_id }}
+          restore-keys: |
+            bot-data-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: python bot.py
+
+      - name: Save bot data
+        if: always()
+        uses: actions/cache@v4
+        with:
+          path: bot_data.json
+          key: bot-data-${{ github.run_id }}
