@@ -49,6 +49,10 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           INSTAGRAM_COOKIES: ${{ secrets.INSTAGRAM_COOKIES }}
+          FACEBOOK_COOKIES: ${{ secrets.FACEBOOK_COOKIES }}
+          API_ID: ${{ secrets.API_ID }}
+          API_HASH: ${{ secrets.API_HASH }}
+          FORCE_SUB_CHANNELS: ${{ secrets.FORCE_SUB_CHANNELS }}
         run: python bot.py
 
       - name: Save database
