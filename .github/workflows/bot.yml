@@ -42,6 +42,9 @@ jobs:
       - name: Create downloads folder
         run: mkdir -p downloads
 
+      - name: Install system dependencies
+        run: sudo apt-get install -y ffmpeg
+
       - name: Install dependencies
         run: pip install -r requirements.txt
 
@@ -50,6 +53,7 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           INSTAGRAM_COOKIES: ${{ secrets.INSTAGRAM_COOKIES }}
           FACEBOOK_COOKIES: ${{ secrets.FACEBOOK_COOKIES }}
+          YOUTUBE_COOKIES: ${{ secrets.YOUTUBE_COOKIES }}
           API_ID: ${{ secrets.API_ID }}
           API_HASH: ${{ secrets.API_HASH }}
           FORCE_SUB_CHANNELS: ${{ secrets.FORCE_SUB_CHANNELS }}
