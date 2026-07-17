@@ -1,5 +1,5 @@
 python-telegram-bot==21.6
 aiohttp==3.10.10
-yt-dlp>=2024.10.7
+yt-dlp>=2025.1.15
 pyrogram==2.0.106
 tgcrypto==1.2.5
